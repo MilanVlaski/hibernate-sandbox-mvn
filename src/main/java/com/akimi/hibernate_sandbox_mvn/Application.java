@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class HibernateSandboxMvnApplication {
+public class Application {
 
     public static void main(String[] args) {
-	SpringApplication.run(HibernateSandboxMvnApplication.class, args);
+	SpringApplication.run(Application.class, args);
     }
 
 }
