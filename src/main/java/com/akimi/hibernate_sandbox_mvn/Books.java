@@ -2,42 +2,46 @@ package com.akimi.hibernate_sandbox_mvn;
 
 import java.util.List;
 
-import org.hibernate.SessionFactory;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
 import org.hibernate.cache.spi.support.AbstractReadWriteAccess.Item;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
+@Transactional
 public class Books {
 
-    private final SessionFactory sessionFactory;
+    @PersistenceContext
+    private EntityManager entityManager;
 
-    @Autowired
-    public Books(SessionFactory sessionFactory) {
-	this.sessionFactory = sessionFactory;
-    }
-
-    public List<Book> findAll() {
-	var session = sessionFactory.getCurrentSession();
-	return session.createQuery("from Book", Book.class).list();
-    }
-
-    public Item findById(Long id) {
-	var session = sessionFactory.getCurrentSession();
-	return session.get(Item.class, id);
-    }
-
+    // Create a new Book
     public void save(Book book) {
-	var session = sessionFactory.getCurrentSession();
-	session.saveOrUpdate(book);
+        entityManager.persist(book);
     }
 
-    public void delete(Long id) {
-	var session = sessionFactory.getCurrentSession();
-	var item = session.get(Book.class, id);
-	if (item != null) {
-	    session.delete(item);
-	}
+    // Read a Book by ID
+    public Book findById(Long id) {
+        return entityManager.find(Book.class, id);
+    }
+
+    // Read all Books
+    public List<Book> findAll() {
+        return entityManager.createQuery("from Book", Book.class).getResultList();
+    }
+
+    // Update a Book
+    public void update(Book book) {
+        entityManager.merge(book);
+    }
+
+    // Delete a Book
+    public void deleteById(Long id) {
+        Book book = entityManager.find(Book.class, id);
+        if (book != null) {
+            entityManager.remove(book);
+        }
     }
 
 }

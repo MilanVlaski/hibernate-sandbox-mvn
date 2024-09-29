@@ -7,10 +7,11 @@ public class Book {
 
     @Id
     @GeneratedValue
-    private Long id;
-    private String name;
+    public Long id;
+    public String name;
 
-    private Book() {
+    protected Book() {
     }
+
 
 }
