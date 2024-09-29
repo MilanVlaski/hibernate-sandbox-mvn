@@ -17,28 +17,28 @@ public class Books {
     public Books(SessionFactory sessionFactory) {
 	this.sessionFactory = sessionFactory;
     }
-    
+
     public List<Item> findAll() {
-        Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("from Item", Item.class).list();
+	Session session = sessionFactory.getCurrentSession();
+	return session.createQuery("from Item", Item.class).list();
     }
 
     public Item findById(Long id) {
-        Session session = sessionFactory.getCurrentSession();
-        return session.get(Item.class, id);
+	Session session = sessionFactory.getCurrentSession();
+	return session.get(Item.class, id);
     }
 
     public void save(Item item) {
-        Session session = sessionFactory.getCurrentSession();
-        session.saveOrUpdate(item);
+	Session session = sessionFactory.getCurrentSession();
+	session.saveOrUpdate(item);
     }
 
     public void delete(Long id) {
-        Session session = sessionFactory.getCurrentSession();
-        Item item = session.get(Item.class, id);
-        if (item != null) {
-            session.delete(item);
-        }
+	Session session = sessionFactory.getCurrentSession();
+	Item item = session.get(Item.class, id);
+	if (item != null) {
+	    session.delete(item);
+	}
     }
-    
+
 }
