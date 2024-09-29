@@ -7,12 +7,12 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/books")
-public class ItemController {
+public class BookController {
 
     private final Books books;
 
     @Autowired
-    public ItemController(Books books) {
+    public BookController(Books books) {
 	this.books = books;
     }
     
